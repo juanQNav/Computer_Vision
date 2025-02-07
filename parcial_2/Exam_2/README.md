@@ -1,16 +1,15 @@
 # Identificador de Objetos con OpenCV
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-    <div style="width: 200px;"><img src="results/Surf/Captura de pantalla 2024-10-23 203947.png" alt="Resultado 1" style="width: 200px;"></div>
-    <div style="width: 200px;"><img src="results/Surf/Captura de pantalla 2024-10-23 204205.png" alt="Resultado 2" style="width: 200px;"></div>
-    <div style="width: 200px;"><img src="results/Surf/Captura de pantalla 2024-10-23 204336.png" alt="Resultado 3" style="width: 200px;"></div>
-</div>
+## Resultados para SURF
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 20px;">
-    <div style="width: 200px;"><img src="results/Surf/Captura de pantalla 2024-10-23 204636.png" alt="Resultado 4" style="width: 200px;"></div>
-    <div style="width: 200px;"><img src="results/Surf/Captura de pantalla 2024-10-23 205158.png" alt="Resultado 5" style="width: 200px;"></div>
-    <div style="width: 200px;"><img src="results/Surf/Captura de pantalla 2024-10-23 205515.png" alt="Resultado 6" style="width: 200px;"></div>
-</div>
+| |  |  |
+|----------|----------|----------|
+| ![Resultado 1](results/Surf/Captura%20de%20pantalla%202024-10-23%20203947.png) | ![Resultado 2](results/Surf/Captura%20de%20pantalla%202024-10-23%20204205.png) | ![Resultado 3](results/Surf/Captura%20de%20pantalla%202024-10-23%20204336.png) |
+
+|  |  |  |
+|----------|----------|----------|
+| ![Resultado 4](results/Surf/Captura%20de%20pantalla%202024-10-23%20204636.png) | ![Resultado 5](results/Surf/Captura%20de%20pantalla%202024-10-23%20205158.png) | ![Resultado 6](results/Surf/Captura%20de%20pantalla%202024-10-23%20205515.png) |
+
 
 Resultados para SURF
 
