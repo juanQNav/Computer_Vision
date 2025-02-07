@@ -1,33 +1,11 @@
 # Object Detector with DNN OpenCV
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-  <!-- First row -->
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/cat_0.png" width="100%" alt="Cat 0">
-  </div>
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/bird_57.png" width="100%" alt="Bird 57">
-  </div>
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/dog_0.png" width="100%" alt="Dog 0">
-  </div>
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/horse_1.png" width="100%" alt="Horse 1">
-  </div>
+|               |               |               |               |
+|---------------|---------------|---------------|---------------|
+| ![Cat 0](results_lg/cat_0.png)  | ![Bird 57](results_lg/bird_57.png) | ![Dog 0](results_lg/dog_0.png)  | ![Horse 1](results_lg/horse_1.png) |
+|   |   |   |  |
+| ![Cat 16](results_lg/cat_16.png)  | ![Bird 3](results_lg/bird_3.png) | ![Dog 44](results_lg/dog_44.png)  | ![Horse 42](results_lg/horse_42.png) |
+|   |   |   |   |
 
-  <!-- Second row -->
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/cat_16.png" width="100%" alt="Cat 16">
-  </div>
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/bird_3.png" width="100%" alt="Bird 3">
-  </div>
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/dog_44.png" width="100%" alt="Dog 44">
-  </div>
-  <div style="width: 24%; margin-bottom: 10px; text-align: center;">
-    <img src="results_lg/horse_42.png" width="100%" alt="Horse 42">
-  </div>
-</div>
 
 This project implements an object detector using the OpenCV library and its DNN (Deep Neural Networks) module. The model used is a pre-trained *Mask R-CNN Inception V2* on the MS COCO dataset for object detection in images. The goal of this system is to identify objects of the classes "cat", "dog", "bird", and "horse" in custom or public images.
 

@@ -1,17 +1,10 @@
 # First Partial Exam on Computer Vision
 
-<table align="center">
-  <tr>
-    <td align="center">
-      <img src="./images/Jorge_Campos.jpg" alt="Original Image" height="500px" style="max-width: 100%;"><br>
-      <b>Original Image</b>
-    </td>
-    <td align="center">
-      <img src="./images/Rotated Image.png" alt="Processed Image" height="500px" style="max-width: 100%;"><br>
-      <b>Processed Image</b>
-    </td>
-  </tr>
-</table>
+|               |               |
+|---------------|---------------|
+| ![Original Image](./images/Jorge_Campos.jpg)  | ![Processed Image](./images/Rotated%20Image.png) |
+| **Original Image**  | **Processed Image** |
+
 
 ## Description
 This project contains the development of the first partial exam on Computer Vision. It works with an image of the former Mexican soccer player Jorge Campos in action, which has been edited to include noise and blur. The objective is to apply various image processing techniques to enhance its quality and extract relevant information.
