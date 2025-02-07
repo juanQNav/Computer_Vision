@@ -1,15 +1,15 @@
 # Identificador de Objetos con OpenCV
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-    <div style="width: 32%;"><img src="results/Surf/Captura de pantalla 2024-10-23 203947.png" alt="Resultado 1" style="width: 100%;"></div>
-    <div style="width: 32%;"><img src="results/Surf/Captura de pantalla 2024-10-23 204205.png" alt="Resultado 2" style="width: 100%;"></div>
-    <div style="width: 32%;"><img src="results/Surf/Captura de pantalla 2024-10-23 204336.png" alt="Resultado 3" style="width: 100%;"></div>
+    <div style="width: 400px;"><img src="results/Surf/Captura de pantalla 2024-10-23 203947.png" alt="Resultado 1" style="width: 100%;"></div>
+    <div style="width: 400px;"><img src="results/Surf/Captura de pantalla 2024-10-23 204205.png" alt="Resultado 2" style="width: 100%;"></div>
+    <div style="width: 400px;"><img src="results/Surf/Captura de pantalla 2024-10-23 204336.png" alt="Resultado 3" style="width: 100%;"></div>
 </div>
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 20px;">
-    <div style="width: 32%;"><img src="results/Surf/Captura de pantalla 2024-10-23 204636.png" alt="Resultado 4" style="width: 100%;"></div>
-    <div style="width: 32%;"><img src="results/Surf/Captura de pantalla 2024-10-23 205158.png" alt="Resultado 5" style="width: 100%;"></div>
-    <div style="width: 32%;"><img src="results/Surf/Captura de pantalla 2024-10-23 205515.png" alt="Resultado 6" style="width: 100%;"></div>
+    <div style="width: 400px;"><img src="results/Surf/Captura de pantalla 2024-10-23 204636.png" alt="Resultado 4" style="width: 100%;"></div>
+    <div style="width: 400px;"><img src="results/Surf/Captura de pantalla 2024-10-23 205158.png" alt="Resultado 5" style="width: 100%;"></div>
+    <div style="width: 400px;"><img src="results/Surf/Captura de pantalla 2024-10-23 205515.png" alt="Resultado 6" style="width: 100%;"></div>
 </div>
 
 Resultados para SURF
