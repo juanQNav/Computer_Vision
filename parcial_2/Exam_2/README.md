@@ -1,7 +1,5 @@
 # Identificador de Objetos con OpenCV
 
-## Resultados para SURF
-
 | |  |  |
 |----------|----------|----------|
 | ![Resultado 1](results/Surf/Captura%20de%20pantalla%202024-10-23%20203947.png) | ![Resultado 2](results/Surf/Captura%20de%20pantalla%202024-10-23%20204205.png) | ![Resultado 3](results/Surf/Captura%20de%20pantalla%202024-10-23%20204336.png) |
