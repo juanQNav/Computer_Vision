@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+% \usepackage[spanish]{babel}
+\usepackage{parskip}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\title{DenseNet201}
+
+\author{
+  \begin{minipage}[t]{0.4\linewidth}
+    \centering
+    Quistian Navarro, Juan Luis\\
+    A341807@alumnos.uaslp.mx 
+  \end{minipage}
+}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\begin{minipage}{\textwidth}
+    \centering
+    \textit{Ing. Sistemas Inteligentes, Gen. 2021} \\
+    \textit{Visión Computacional}
+\end{minipage}
+
+% \small
+\section{Introducción}
+
+En los últimos años, las redes neuronales convolucionales (CNNs) han revolucionado el campo de la visión por computadora, gracias a su capacidad para aprender representaciones jerárquicas a partir de datos visuales. Arquitecturas como AlexNet, VGG y ResNet han marcado hitos importantes al resolver problemas complejos como la clasificación de imágenes, detección de objetos y segmentación semántica. Sin embargo, estas arquitecturas suelen enfrentarse a limitaciones como el aumento exponencial de parámetros y la disminución de eficiencia con el incremento de profundidad.
+
+DenseNet, presentada en 2016, es una arquitectura que aborda estos desafíos introduciendo la conectividad densa entre capas, una estrategia que maximiza la reutilización de características y optimiza el flujo de gradientes. DenseNet201, una variante con 201 capas, se ha destacado por su balance entre profundidad y eficiencia computacional, consolidándose como una opción robusta en diversas aplicaciones de visión por computadora.
+
+En este documento, se explora a fondo la arquitectura DenseNet201, destacando su diseño, ventajas sobre otras arquitecturas, y su impacto en diferentes problemas de visión por computadora. Además, se detallan las características únicas que hacen de DenseNet201 un modelo eficiente y poderoso.
+
+\section{Autores y año en que se propuso}
+
+DenseNet es una arquitectura de red neuronal convolucional (CNN) introducida en 2016 por Gao Huang, Zhuang Liu, Laurens van der Maaten y Kilian Q. Weinberger.
+
+\section{Descripción del diseño del modelo}
+\textbf{Densely Connected Convolutional} (DenseNet)\cite{huang2018denselyconnectedconvolutionalnetworks}, redes convolucionales densamente conectadas. Recibe este nombre porque conecta cada capa con las demás de forma directa.
+DenseNet tiene dos características clave que la diferencian de otras arquitecturas CNN. En primer lugar, tiene una estructura de bloques densos, en la que cada capa está
+está conectada a todas las demás de forma directa. En segundo lugar, utiliza capas de cuello de botella que ayudan a reducir el número de parametros sin reducir el número
+de características aprendidas por la red.
+
+\section{Qué ventajas presenta sobre otros modelos}
+
+DenseNet presenta varias ventajas significativas frente a otras arquitecturas CNN\cite{densenet_review}:
+\begin{itemize}
+    \item \textbf{Eficiencia en el uso de parámetros:} Gracias a la reutilización de características, DenseNet es más eficiente que otras arquitecturas como ResNet o VGG, logrando resultados similares o mejores con menos parámetros.
+    \item \textbf{Mitigación del desvanecimiento del gradiente:} La conectividad densa facilita el flujo del gradiente, lo que permite entrenar redes más profundas de manera efectiva.
+    \item \textbf{Mejor utilización de características:} Al compartir características entre capas, cada capa tiene acceso directo a los mapas de características generados por todas las capas anteriores.
+    \item \textbf{Regularización implícita:} La reutilización de características actúa como una forma de regularización, reduciendo el riesgo de sobreajuste.
+\end{itemize}
+
+\section{Cuantas capas tiene y de que tipo}
+DenseNet201, como su nombre indica, consta de 201 capas\cite{huang2018denselyconnectedconvolutionalnetworks}. Estas incluyen:
+\begin{itemize}
+    \item \textbf{Capas convolucionales:} Utilizadas dentro de los bloques densos y capas de transición.
+    \item \textbf{Capas de Batch Normalization:} Para estabilizar y acelerar el entrenamiento.
+    \item \textbf{Capas ReLU:} Para introducir no linealidad.
+    \item \textbf{Dropout:} Para prevenir el sobreajuste.
+    \item \textbf{Capas de Pooling:} En las capas de transición y al final de la red.
+    \item \textbf{Clasificador Softmax:} Al final de la red para las tareas de clasificación.
+\end{itemize}
+
+\subsection{Dense block}
+ En DenseNet, cada capa obtiene entradas adicionlaes de todas las capas precedentes y transmite sus propios mapas de característicasa todas las capas posteriores.
+ Se utiliza la concatenación. Cada capa recibe un "conocimiento colectivo" de todas las capas anteriores \cite{densenet_review}. 
+
+ Cada bloque denso se compone de una capa convolucional 1x1 seguida de una capa convolucional 3x3 (consta de Batch Normalization y ReLU, luego convolucion 3x3 y finalmente Dropout)
+ 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.40\linewidth]{images/architecture.png}
+    \caption{Arquitectura de DenseNet con 5 capas con expansión de 4}
+\end{figure}
+
+\subsection{Transition layer}
+Ya que para hacer la concatenación de un bloque denso con otro, se necesqita que tengan la misma dimensión, se utiliza una capa de transición para ajustar las dimensiones.
+Dicha capa de transición se comopne de una capa convolucional 1x1 (Batch Normalization, seguida de una ReLU, luego un convolucion de 1x1, ahora un Dropout)  seguida de una capa de pooling 2x2.
+Asi veremos que la salida de la capa anterior se convertirá en la entrada de la siguiente capa densa \cite{densenet_review}.
+
+\subsection{Al final del ultimo bloque denso}
+Al final del último bloque denso, se realiza un Global Average Pooling  y, a continuación, se adjunta un clasificador softmax.
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/deepdense.png}
+  \caption{Multiple Dense Blocks}
+\end{figure}
+
+\section{Parámetros y otros detalles particulares}
+\begin{itemize}
+  \item \textbf{Crecimiento (\(k\)):} DenseNet usa un parámetro denominado factor de crecimiento que controla el número de mapas de características generados en cada capa. En DenseNet201, \(k = 32\).
+  \item \textbf{Bloques densos:} DenseNet201 tiene 4 bloques densos, separados por 3 capas de transición.
+  \item \textbf{Global Average Pooling:} Antes del clasificador, se realiza un promedio global para reducir dimensionalidad.
+  \item \textbf{Entradas:} La red acepta imágenes típicamente de tamaño \(224 \times 224\).
+  \item \textbf{Número total de parámetros:} Aproximadamente 20 millones, significativamente menos que otras arquitecturas de tamaño comparable.
+\end{itemize}
+
+
+\section{Para qué problemas se ha utilizado}
+
+DenseNet se ha utilizado en una amplia variedad de problemas, incluyendo:
+\begin{itemize}
+    \item \textbf{Clasificación de imágenes:} Específicamente en conjuntos de datos como ImageNet y CIFAR-10, donde DenseNet ha mostrado resultados competitivos \cite{huang2018denselyconnectedconvolutionalnetworks}.
+    \item \textbf{Detección médica:} Detección del cáncer de mama mediante mamografía \cite{ABDELRAHMAN2021104248}.
+    \item \textbf{Reconocimiento facial:} Para tareas de identificación y verificación facial \cite{inbook}.
+    \item \textbf{Visión por computadora general:} Incluyendo detección de objetos y clasificación de escenas \cite{AGGARWAL2022105350}.
+\end{itemize}
+
+\section{Enlce para bajar el archivo de configuración}
+
+El archivo de configuración para DenseNet201 se puede obtener en el repositorio oficial de PyTorch o TensorFlow. Por ejemplo:
+\begin{itemize}
+    \item PyTorch: \url{https://pytorch.org/vision/stable/models.html}
+    \item TensorFlow: \url{https://www.tensorflow.org/api_docs/python/tf/keras/applications/DenseNet201}
+\end{itemize}
+
+
+\section{Conclusión}
+DenseNet representa un avance significativo en el diseño de redes neuronales convolucionales, al introducir la idea de conectividad densa para maximizar la 
+reutilización de características y mejorar la eficiencia. Con una estructura innovadora y un rendimiento competitivo, DenseNet ha demostrado su utilidad en 
+diversas aplicaciones, especialmente aquellas relacionadas con visión por computadora. Su arquitectura eficiente y versátil continúa siendo una referencia en
+ la investigación y desarrollo de modelos profundos.
+
+\bibliographystyle{plain}
+\bibliography{ref,S0010482521000421,S0010482522001421}
+\end{document}

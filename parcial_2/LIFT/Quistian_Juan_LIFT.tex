@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[spanish]{babel}
+\usepackage{parskip}
+\usepackage{amssymb}
+
+\title{LIFT: Learned Invariant Feature Transform}
+
+\author{
+  \begin{minipage}[t]{0.4\linewidth}
+    \centering
+    Quistian Navarro, Juan Luis\\
+    A341807@alumnos.uaslp.mx 
+  \end{minipage}
+}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\begin{minipage}{\textwidth}
+  \centering
+  \textit{Ing. Sistemas Inteligentes, Gen. 2021} \\
+  \textit{Visión Computacional}
+\end{minipage}
+
+\newpage
+% \large
+\section{Introducción}
+
+LIFT: Learned Invariant Feature Transform \cite{yi2016liftlearnedinvariantfeature}, en español \textit{Transformación de Características Invariantes Aprendidas}, es una arquitectura de red profunda que aborda todo el proceso de manejo de puntos clave en imágenes: detección de puntos de interés, estimación de orientación y descripción de características. Los autores demuestran que su pipeline profundo (\textit{Deep pipeline}) supera varios \textit{benchmarks} de conjuntos de datos sin necesidad de reentrenamiento, y ofrece una solución optimizada y diferenciable de extremo a extremo.
+
+El uso de redes neuronales profundas en cada uno de estos pasos asegura que los puntos de interés y sus descriptores sean más robustos frente a cambios de escala, rotación y condiciones de iluminación. Esto tiene un impacto significativo en aplicaciones de visión computacional como la correspondencia de imágenes y la reconstrucción 3D.
+
+\section{Autores, Año}
+
+El trabajo fue publicado en 2016 por Kwang Moo Yi, Eduard Trulls, Vincent Lepetit y Pascal Fua. Estos autores pertenecen a instituciones de prestigio como el \textit{Computer Vision Laboratory} de la \textit{Ecole Polytechnique Fédérale de Lausanne} (EPFL) y el \textit{Institute for Computer Graphics and Vision} de la \textit{Graz University of Technology}.
+
+\section{Descripción del Método}
+
+La arquitectura de LIFT consta de tres componentes principales que se alimentan entre sí: el \textbf{Detector}, el \textbf{Estimador de Orientación} y el \textbf{Descriptor}. Cada uno de estos módulos está basado en redes neuronales convolucionales (CNN) y se entrena de manera conjunta para optimizar su funcionamiento en conjunto.
+
+\subsection{Detector}
+
+El módulo de detección identifica los puntos de interés en una imagen, es decir, aquellos puntos que son robustos frente a cambios en la escala y la rotación. En lugar de utilizar técnicas tradicionales como el detector de esquinas de Harris o el detector de blobs de DoG, el detector de LIFT utiliza una CNN entrenada para encontrar puntos clave que sean más adecuados para la descripción y el emparejamiento posterior.
+
+\subsection{Estimador de Orientación}
+
+El estimador de orientación ajusta los parches de imagen en torno a los puntos detectados, de modo que estén correctamente alineados antes de extraer los descriptores. Esta etapa es crítica para asegurar que los descriptores sean invariantes a la rotación, mejorando la correspondencia entre imágenes capturadas desde diferentes ángulos.
+
+\subsection{Descriptor}
+
+El descriptor es una de las partes más críticas del pipeline de LIFT, ya que es responsable de convertir la información visual localizada por el detector en una representación numérica que permita la comparación y emparejamiento entre diferentes imágenes. Esta representación, conocida como vector de características o descriptor, debe ser robusta frente a variaciones en las condiciones de captura.
+
+\begin{itemize}
+  \item cambios de iluminación
+  \item escala
+  \item rotación de la cámara.
+\end{itemize}
+
+En LIFT, este componente se construye utilizando una red neuronal convolucional (CNN) entrenada para extraer descriptores que sean invariantes a estas variaciones. Esto supone una mejora significativa sobre los descriptores tradicionales.
+
+El entrenamiento del descriptor en LIFT se realiza utilizando un enfoque basado en redes \textit{Siamese}. Estas redes toman como entrada pares de imágenes (o parches de imagen) y aprenden a generar descriptores que minimicen la distancia entre puntos de interés correspondientes en diferentes imágenes, mientras maximizan la distancia entre descriptores de puntos no coincidentes. Este enfoque es especialmente efectivo para crear descriptores discriminativos, capaces de distinguir correctamente entre puntos clave reales y falsos positivos.
+
+Una característica destacable del descriptor en LIFT es que su entrenamiento se realiza antes de los otros componentes del pipeline (el detector y el estimador de orientación). Esto se debe a que el rendimiento de los descriptores influye directamente en el resto del pipeline. Una vez que el descriptor ha sido entrenado para producir representaciones sólidas, se utiliza en las etapas posteriores para refinar el comportamiento del detector y el estimador de orientación.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{./images/LIFT_pipeline.png}
+  \caption{Esquema del pipeline de LIFT. El detector, estimador de orientación y descriptor están integrados de forma diferenciable en un mismo flujo.}
+  \label{fig:liftpipe}
+\end{figure}
+
+\section{Donde obtenerlo}
+
+El código fuente de LIFT está disponible públicamente en repositorios de código abiertos, como GitHub. Los autores también han publicado algunos conjuntos de datos y modelos preentrenados para facilitar su uso en investigaciones posteriores. Se puede acceder a estos recursos a través de la página oficial del proyecto o de publicaciones científicas donde se encuentra referenciado el trabajo.
+
+\begin{itemize}
+  \item Repositorio GitHub: \url{https://github.com/cvlab-epfl/LIFT}
+\end{itemize}
+
+\section{Conclusión}
+
+LIFT representa un avance significativo en el campo de la visión computacional al integrar en una única arquitectura el proceso completo de manejo de puntos clave. La capacidad de entrenar de manera conjunta el detector, estimador de orientación y descriptor, junto con el uso de redes profundas, permite obtener una mayor robustez en la detección y emparejamiento de características locales entre imágenes. Esto abre nuevas oportunidades para mejorar aplicaciones en la reconstrucción 3D, seguimiento de objetos, y realidad aumentada, entre otras.
+
+\bibliographystyle{plain}
+\bibliography{ref}
+\end{document}

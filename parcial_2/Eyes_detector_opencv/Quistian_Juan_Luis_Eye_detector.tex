@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[spanish]{babel}
+\usepackage{parskip}
+\usepackage{amssymb}
+\usepackage{float}
+
+\title{Eye detector con OpenCV}
+
+\author{
+  \begin{minipage}[t]{0.4\linewidth}
+    \centering
+    Quistian Navarro, Juan Luis\\
+    A341807@alumnos.uaslp.mx 
+  \end{minipage}
+}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\begin{minipage}{\textwidth}
+    \centering
+    \textit{Ing. Sistemas Inteligentes, Gen. 2021} \\
+    \textit{Visión Computacional}
+\end{minipage}
+
+\newpage
+
+\section{Introducción}
+El reconocimiento de patrones es una de las principales aplicaciones dentro del campo de la visión computacional. En este proyecto, se utiliza el software OpenCV para la detección de ojos mediante dos métodos ampliamente conocidos: Haar Cascade y Local Binary Patterns (LBP). Este reporte explica cómo funcionan ambos métodos, la generación de muestras con \texttt{opencv\_createsamples}, el entrenamiento de un clasificador con \texttt{opencv\_traincascade}, y una comparativa de los parámetros utilizados en Haar y LBP.
+
+\section{Haar Cascade y Local Binary Patterns}
+En esta sección, se describen los dos métodos de detección utilizados en OpenCV.
+
+\subsection{Haar Cascade}
+Haar Cascade es un método basado en la detección de características de Haar, propuesto por Viola y Jones. Este método utiliza un clasificador en cascada para detectar patrones específicos, como los ojos, en imágenes.
+
+\textbf{Funcionamiento}:
+1. \textit{Extracción de características}: Las características de Haar son formas geométricas simples (como rectángulos blancos y negros) que capturan la variación de intensidad de la imagen.
+2. \textit{Clasificación en cascada}: Se usa una cascada de clasificadores para rechazar rápidamente las regiones de la imagen que no contienen el objeto de interés.
+3. \textit{Detección de ventana deslizante}: Se pasa una ventana sobre la imagen para evaluar si el objeto está presente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./images/haar_feature_example.png}
+    \caption{Ejemplo de características de Haar en una imagen.}
+\end{figure}
+
+\subsection{Local Binary Patterns (LBP)}
+LBP es otro método de detección que utiliza patrones locales de textura. Este método asigna un valor binario a cada píxel comparándolo con sus vecinos, generando un patrón que representa la estructura de la imagen.
+
+\textbf{Funcionamiento}:
+1. \textit{Asignación de valores binarios}: Para cada píxel, se compara con sus vecinos y se genera un número binario (0 o 1) dependiendo de si es mayor o menor que sus vecinos.
+2. \textit{Codificación del patrón}: El patrón binario resultante se convierte en un valor decimal, que representa la textura en esa región de la imagen.
+3. \textit{Clasificación}: Los patrones locales de la imagen se usan para entrenar un clasificador que detecta objetos basados en la textura.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./images/lbp_pattern.png}
+    \caption{Ejemplo de cálculo de un patrón LBP.}
+\end{figure}
+
+\section{Cómo funciona \texttt{opencv\_createsamples}}
+El comando \texttt{opencv\_createsamples} genera imágenes positivas sintéticas a partir de un conjunto inicial de imágenes, que serán usadas en el entrenamiento de clasificadores.
+
+\textbf{Sintaxis}:
+\begin{verbatim}
+opencv_createsamples -info info.dat -num 1000 -w 24 -h 24
+\end{verbatim}
+
+\textbf{Parámetros}:
+\begin{itemize}
+    \item \texttt{-info}: Especifica el archivo que contiene las anotaciones de las imágenes positivas (posición del objeto).
+    \item \texttt{-num}: El número de imágenes sintéticas que se deben generar.
+    \item \texttt{-w} y \texttt{-h}: El ancho y alto de las imágenes generadas, generalmente la resolución del objeto a detectar.
+    \item \texttt{-vec}: (opcional) Nombre del archivo de salida donde se almacenarán las muestras positivas en formato binario.
+    \item \texttt{-bg}: Archivo que contiene la lista de imágenes de fondo que no contienen el objeto.
+\end{itemize}
+
+\section{Cómo funciona \texttt{opencv\_traincascade}}
+El comando \texttt{opencv\_traincascade} se utiliza para entrenar un clasificador en cascada, ya sea con el método de Haar Cascade o LBP.
+
+\textbf{Sintaxis}:
+\begin{verbatim}
+opencv_traincascade -data classifier -vec samples.vec -bg bg.txt 
+-numPos 1000 -numNeg 500 -numStages 10 -w 24 -h 24 -featureType LBP
+\end{verbatim}
+
+\textbf{Parámetros}:
+\begin{itemize}
+    \item \texttt{-data}: Directorio donde se almacenará el clasificador entrenado.
+    \item \texttt{-vec}: Archivo con las imágenes positivas generadas por \texttt{opencv\_createsamples}.
+    \item \texttt{-bg}: Archivo que contiene la lista de imágenes de fondo (negativas).
+    \item \texttt{-numPos}: Número de imágenes positivas usadas en el entrenamiento.
+    \item \texttt{-numNeg}: Número de imágenes negativas usadas en el entrenamiento.
+    \item \texttt{-numStages}: Número de etapas en la cascada, cada una más estricta que la anterior.
+    \item \texttt{-w} y \texttt{-h}: Tamaño de las imágenes de entrenamiento.
+    \item \texttt{-featureType}: Especifica si se usará \texttt{HAAR} o \texttt{LBP} como tipo de característica.
+\end{itemize}
+
+\section{Diferencias - data haar - data lbp}
+Los dos métodos, Haar y LBP, utilizan parámetros similares, pero difieren en algunos aspectos clave:
+
+\textbf{Diferencias principales}:
+\begin{itemize}
+    \item \textbf{Velocidad de entrenamiento}: LBP generalmente es más rápido de entrenar en comparación con Haar, debido a su menor complejidad computacional.
+    \item \textbf{Rendimiento}: Haar Cascade puede ser más preciso en la detección de características más detalladas, mientras que LBP funciona mejor con patrones más simples.
+    \item \textbf{Parámetro \texttt{-featureType}}: Especifica el tipo de característica utilizada, que puede ser \texttt{HAAR} o \texttt{LBP}.
+\end{itemize}
+
+A continuación se muestra una tabla comparativa:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Parámetro}      & \textbf{Haar} & \textbf{LBP} \\
+        \hline
+        Tiempo de entrenamiento & Lento         & Rápido       \\
+        Detección de patrones   & Detallado     & General      \\
+        Exactitud               & Alta          & Moderada     \\
+        \hline
+    \end{tabular}
+    \caption{Comparación entre Haar y LBP.}
+\end{table}
+
+\section{Conclusión}
+En resumen, los métodos Haar Cascade y LBP son herramientas poderosas para la detección de objetos en imágenes. Cada método tiene sus ventajas y desventajas en términos de precisión y velocidad, lo que permite elegir la técnica adecuada dependiendo del caso de uso. La implementación de estos métodos en OpenCV facilita su uso a través de las funciones \texttt{opencv\_createsamples} y \texttt{opencv\_traincascade}, las cuales permiten generar clasificadores personalizados.
+
+\bibliographystyle{plain}
+\bibliography{ref}
+\end{document}
