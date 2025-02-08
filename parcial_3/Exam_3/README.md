@@ -48,7 +48,7 @@ Additionally, you need the following files:
 2. Run the `detector.py` script with the following parameters:
 
 ```bash
-python detector.py --model <path_to_model> --config <path_to_config> --labels_coco <path_to_labels> --images <path_to_images> --output <path_to_output> --th 0.5 --max_imgs 5 --plot
+python object_detection_evaluation.py --model <path_to_model> --config <path_to_config> --labels_coco <path_to_labels> --images <path_to_images> --output <path_to_output> --th 0.5 --max_imgs 5 --plot
 ```
 
 # Parameters
