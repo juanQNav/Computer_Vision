@@ -1,59 +1,56 @@
-# Identificador de Objetos con OpenCV
+# Object Identifier with OpenCV
 
 | |  |  |
 |----------|----------|----------|
-| ![Resultado 1](results/Surf/Captura%20de%20pantalla%202024-10-23%20203947.png) | ![Resultado 2](results/Surf/Captura%20de%20pantalla%202024-10-23%20204205.png) | ![Resultado 3](results/Surf/Captura%20de%20pantalla%202024-10-23%20204336.png) |
+| ![Result 1](results/Surf/Captura%20de%20pantalla%202024-10-23%20203947.png) | ![Result 2](results/Surf/Captura%20de%20pantalla%202024-10-23%20204205.png) | ![Result 3](results/Surf/Captura%20de%20pantalla%202024-10-23%20204336.png) |
 
 |  |  |  |
 |----------|----------|----------|
-| ![Resultado 4](results/Surf/Captura%20de%20pantalla%202024-10-23%20204636.png) | ![Resultado 5](results/Surf/Captura%20de%20pantalla%202024-10-23%20205158.png) | ![Resultado 6](results/Surf/Captura%20de%20pantalla%202024-10-23%20205515.png) |
+| ![Result 4](results/Surf/Captura%20de%20pantalla%202024-10-23%20204636.png) | ![Result 5](results/Surf/Captura%20de%20pantalla%202024-10-23%20205158.png) | ![Result 6](results/Surf/Captura%20de%20pantalla%202024-10-23%20205515.png) |
 
+Results for SURF
 
-Resultados para SURF
+## Description
+This project implements an object identifier using image descriptors in OpenCV. Three main feature extraction methods are used:
 
+- **BRISK (Binary Robust Invariant Scalable Keypoints)**: Fast and efficient for detecting key points in images.
+- **SURF (Speeded Up Robust Features)**: More robust to scale and lighting changes.
+- **HOG (Histogram of Oriented Gradients)**: Focuses on the global structure of the image and is used with an SVM classifier.
 
-## Descripción
-Este proyecto implementa un identificador de objetos utilizando descriptores de imágenes en OpenCV. Se utilizan tres métodos principales de extracción de características:
+The goal is to identify objects in images or in real-time via a camera by comparing descriptors with a reference dataset.
 
-- **BRISK (Binary Robust Invariant Scalable Keypoints)**: Rápido y eficiente para detectar puntos clave en imágenes.
-- **SURF (Speeded Up Robust Features)**: Más robusto ante cambios de escala e iluminación.
-- **HOG (Histogram of Oriented Gradients)**: Se enfoca en la estructura global de la imagen y se usa con un clasificador SVM.
-
-El objetivo es identificar objetos en imágenes o en tiempo real mediante una cámara, comparando los descriptores con un conjunto de datos de referencia.
-
-## Instalación
-Para ejecutar este proyecto, es necesario instalar las siguientes dependencias:
+## Installation
+To run this project, install the following dependencies:
 ```bash
 pip install opencv-python numpy scikit-learn matplotlib
 ```
 
-## Uso
-Ejecutar el script con los siguientes parámetros:
+## Usage
+Run the script with the following parameters:
 ```bash
-python classifiers.py --i <ruta/dataset> --d <descriptor> --t 5 --r "(64,64)"
+python classifiers.py --i <path/dataset> --d <descriptor> --t 5 --r "(64,64)"
 ```
-Donde:
-- `--i`: Ruta a las imágenes de entrenamiento.
-- `--d`: Descriptor a utilizar (`brisk`, `surf` o `hog`).
-- `--t`: Umbral de coincidencias para la identificación.
-- `--r`: Redimensionado opcional de las imágenes.
+Where:
+- `--i`: Path to the training images.
+- `--d`: Descriptor to use (`brisk`, `surf`, or `hog`).
+- `--t`: Matching threshold for identification.
+- `--r`: Optional image resizing.
 
-Para probar el reconocimiento en tiempo real con la cámara:
+To test real-time recognition with a camera:
 ```bash
 python classifiers.py --i <dataset> --d <hog> --t 5
 ```
 
-## Resultados
-Se evaluaron los tres descriptores con un conjunto de 7 objetos cotidianos. Los resultados obtenidos fueron:
+## Results
+The three descriptors were evaluated with a set of 7 everyday objects. The results obtained were:
 
-| Descriptor | Precisión |
+| Descriptor | Accuracy |
 |------------|-----------|
-| BRISK      | 16.14 matches promedio |
-| SURF       | 54.28 matches promedio |
-| HOG + SVM  | 92% precisión (pero con dificultad para algunas clases) |
+| BRISK      | 16.14 average matches |
+| SURF       | 54.28 average matches |
+| HOG + SVM  | 92% accuracy (but struggled with some classes) |
 
-SURF fue el descriptor más efectivo en general, seguido de BRISK y luego HOG, que requirió aumento de datos para mejorar la precisión.
+SURF was the most effective descriptor overall, followed by BRISK, and then HOG, which required data augmentation to improve accuracy.
 
-## Conclusión
-Este proyecto permitió comparar distintos métodos de identificación de imágenes con OpenCV. Mientras que SURF ofreció la mejor precisión, BRISK fue el más rápido. HOG con SVM mostró buenos resultados en clasificación, pero con limitaciones en la detección de objetos en video en tiempo real.
-
+## Conclusion
+This project allowed for a comparison of different image identification methods using OpenCV. While SURF provided the best accuracy, BRISK was the fastest. HOG with SVM showed good classification results but had limitations in real-time object detection in video.
