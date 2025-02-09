@@ -26,5 +26,5 @@ pip install opencv-python numpy matplotlib
 ## Usage
 To explore the files, you can clone this repository with:
 ```bash
-git clone <REPOSITORY_URL>
+git clone https://github.com/juanQNav/Computer_Vision.git
 ```
